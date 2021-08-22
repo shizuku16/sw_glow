@@ -1,0 +1,192 @@
+<html>
+<head>
+  <link rel"styleshhet" href"stylesheet.css">
+<title>能力成長</title>
+<script type="text/JavaScript">
+dice1=6
+p=0
+m=0
+g=0
+h=0
+i=0
+j=0
+k=0
+l=0
+
+function glow(){
+document.form1.reroll.disabled=true
+document.form1.start.disabled=true
+p++
+m++
+dice1=Math.floor(Math.random()*6);
+dice2=Math.floor(Math.random()*6);
+dice3=Math.floor(Math.random()*6);
+nouryoku=new Array("器用","敏捷","筋力","生命","知力","精神");
+document.form1.seityou1.value = nouryoku[dice1];
+document.form1.seityou2.value = nouryoku[dice2];
+document.form1.log.value += p + "：" + nouryoku[dice1] + "or" + nouryoku[dice2];
+
+if(document.form1.akasi.value==1&&dice1!=0&&dice1!=1&&dice2!=0&&dice2!=1){
+document.form1.reroll.disabled=false
+}
+
+if(document.form1.akasi.value==2&&dice1!=2&&dice1!=3&&dice2!=2&&dice2!=3){
+document.form1.reroll.disabled=false
+}
+
+if(document.form1.akasi.value==3&&dice1!=4&&dice1!=5&&dice2!=4&&dice2!=5){
+document.form1.reroll.disabled=false
+}
+stop=1
+}
+
+function kettei1(){
+if(document.form1.seityou1.value != "終了"){
+if(dice1==0){g++}
+if(dice1==1){h++}
+if(dice1==2){i++}
+if(dice1==3){j++}
+if(dice1==4){k++}
+if(dice1==5){l++}
+
+document.form1.a.value=g
+document.form1.b.value=h
+document.form1.c.value=i
+document.form1.d.value=j
+document.form1.e.value=k
+document.form1.f.value=l
+document.form1.log.value += "→"+nouryoku[dice1] + "\n"
+document.form1.ato1.value=g+Number(document.form1.mae1.value)
+document.form1.ato2.value=h+Number(document.form1.mae2.value)
+document.form1.ato3.value=i+Number(document.form1.mae3.value)
+document.form1.ato4.value=j+Number(document.form1.mae4.value)
+document.form1.ato5.value=k+Number(document.form1.mae5.value)
+document.form1.ato6.value=l+Number(document.form1.mae6.value)
+}
+
+if(document.form1.n.value >m){glow()}
+else{document.form1.seityou1.value = "終了";document.form1.seityou2.value = "終了";dice1=6;dice2=6;document.form1.start.disabled=false}
+}
+
+function kettei2(){
+if(document.form1.seityou1.value != "終了"){
+if(dice2==0){g++}
+if(dice2==1){h++}
+if(dice2==2){i++}
+if(dice2==3){j++}
+if(dice2==4){k++}
+if(dice2==5){l++}
+
+document.form1.a.value=g
+document.form1.b.value=h
+document.form1.c.value=i
+document.form1.d.value=j
+document.form1.e.value=k
+document.form1.f.value=l
+document.form1.log.value += "→"+nouryoku[dice2] + "\n"
+document.form1.ato1.value=g+Number(document.form1.mae1.value)
+document.form1.ato2.value=h+Number(document.form1.mae2.value)
+document.form1.ato3.value=i+Number(document.form1.mae3.value)
+document.form1.ato4.value=j+Number(document.form1.mae4.value)
+document.form1.ato5.value=k+Number(document.form1.mae5.value)
+document.form1.ato6.value=l+Number(document.form1.mae6.value)
+}
+
+if(document.form1.n.value >m){glow()}else{document.form1.seityou1.value = "終了";document.form1.seityou2.value = "終了";dice1=6;dice2=6;document.form1.start.disabled=false}
+}
+
+function skip(){
+document.form1.log.value += "→振り直し→"+nouryoku[dice3] + "\n"
+if(dice3==0){g++}
+if(dice3==1){h++}
+if(dice3==2){i++}
+if(dice3==3){j++}
+if(dice3==4){k++}
+if(dice3==5){l++}
+document.form1.a.value=g
+document.form1.b.value=h
+document.form1.c.value=i
+document.form1.d.value=j
+document.form1.e.value=k
+document.form1.f.value=l
+document.form1.ato1.value=g+Number(document.form1.mae1.value)
+document.form1.ato2.value=h+Number(document.form1.mae2.value)
+document.form1.ato3.value=i+Number(document.form1.mae3.value)
+document.form1.ato4.value=j+Number(document.form1.mae4.value)
+document.form1.ato5.value=k+Number(document.form1.mae5.value)
+document.form1.ato6.value=l+Number(document.form1.mae6.value)
+
+if(document.form1.n.value >m){glow()}else{document.form1.seityou1.value = "終了";document.form1.seityou2.value = "終了";dice1=6;dice2=6;document.form1.start.disabled=false}
+}
+
+</script>
+</head>
+
+<body>
+<form name="form1">
+各能力の現在値を左の欄に入力してください。<br>
+器用：
+<input type="text" name="mae1" style="width:40px;">
++
+<input type="text" name="a" style="width:40px;" placeholder="0" disabled>回
+=
+<input type="text" name="ato1" style="width:40px;" disabled>
+<br>
+敏捷：
+<input type="text" name="mae2" style="width:40px;">
++
+<input type="text" name="b" style="width:40px;" placeholder="0" disabled>回
+=
+<input type="text" name="ato2" style="width:40px;" disabled>
+<br>
+筋力：
+<input type="text" name="mae3" style="width:40px;">
++
+<input type="text" name="c" style="width:40px;" placeholder="0" disabled>回
+=
+<input type="text" name="ato3" style="width:40px;" disabled>
+<br>
+生命：
+<input type="text" name="mae4" style="width:40px;">
++
+<input type="text" name="d" style="width:40px;" placeholder="0" disabled>回
+=
+<input type="text" name="ato4" style="width:40px;" disabled>
+<br>
+知力：
+<input type="text" name="mae5" style="width:40px;">
++
+<input type="text" name="e" style="width:40px;" placeholder="0" disabled>回
+=
+<input type="text" name="ato5" style="width:40px;" disabled>
+<br>
+精神：
+<input type="text" name="mae6" style="width:40px;">
++
+<input type="text" name="f" style="width:40px;" placeholder="0" disabled>回
+=
+<input type="text" name="ato6" style="width:40px;" disabled>
+<p>
+勇者の証を着けている場合には以下から種類を選択してください。<br>
+<select name="akasi">
+	<option value="0">なし</option>
+	<option value="1">技</option>
+	<option value="2">体</option>
+	<option value="3">心</option>
+</select>
+<p>
+成長回数を入力してください。<br>
+<input type="text" name="n"> <br>
+<input type="button" name="start"value="成長開始" onclick="if(dice1==6){m=0;glow()}">
+<p>
+成長させる方をクリックしてください。<br>
+能力1：<input type="button" name="seityou1" onclick="kettei1()">
+能力2：<input type="button" name="seityou2" onclick="kettei2()">
+&nbsp&nbsp&nbsp;
+勇者の証用：<input type="button" name="reroll" value="振り直し"  disabled onclick="skip()">
+<p>
+記録用<br>
+<textarea name="log" rows="50"></textarea>
+</form>
+</body>
+</html>
