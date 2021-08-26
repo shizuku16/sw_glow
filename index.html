@@ -1,8 +1,25 @@
 <html>
 <head>
-  <link rel"styleshhet" href"stylesheet.css">
 <title>能力成長</title>
 <script type="text/JavaScript">
+
+function uketori(){
+var url=new URL(window.location.href)
+kiyou=url.searchParams.get("kiyou")
+binsyou=url.searchParams.get("binsyou")
+kinryoku=url.searchParams.get("kinryoku")
+seimeiryoku=url.searchParams.get("seimeiryoku")
+tiryoku=url.searchParams.get("tiryoku")
+seisinryoku=url.searchParams.get("seisinryoku")
+document.form1.mae1.value=kiyou
+document.form1.mae2.value=binsyou
+document.form1.mae3.value=kinryoku
+document.form1.mae4.value=seimeiryoku
+document.form1.mae5.value=tiryoku
+document.form1.mae6.value=seisinryoku
+}
+
+
 dice1=6
 p=0
 m=0
@@ -14,6 +31,8 @@ k=0
 l=0
 
 function glow(){
+
+
 document.form1.reroll.disabled=true
 document.form1.start.disabled=true
 p++
@@ -122,7 +141,7 @@ if(document.form1.n.value >m){glow()}else{document.form1.seityou1.value = "終�
 </script>
 </head>
 
-<body>
+<body onload="uketori()">
 <form name="form1">
 各能力の現在値を左の欄に入力してください。<br>
 器用：
@@ -177,7 +196,7 @@ if(document.form1.n.value >m){glow()}else{document.form1.seityou1.value = "終�
 <p>
 成長回数を入力してください。<br>
 <input type="text" name="n"> <br>
-<input type="button" name="start"value="成長開始" onclick="if(dice1==6){m=0;glow()}">
+<input type="button" name="start"value="成長開始" onclick="m=0;glow()">
 <p>
 成長させる方をクリックしてください。<br>
 能力1：<input type="button" name="seityou1" onclick="kettei1()">
@@ -186,8 +205,7 @@ if(document.form1.n.value >m){glow()}else{document.form1.seityou1.value = "終�
 勇者の証用：<input type="button" name="reroll" value="振り直し"  disabled onclick="skip()">
 <p>
 記録用<br>
-<textarea name="log" rows="10" cols="30"></textarea><p>
-勇者の種成長は<a href="https://shizuku16.github.io/sw_glow2/">こちら<a><p>
+<textarea name="log" rows="50"></textarea>
 </form>
 </body>
 </html>
