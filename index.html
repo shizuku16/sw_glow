@@ -195,7 +195,7 @@ if(document.form1.n.value >m){glow()}else{document.form1.seityou1.value = "終�
 </select>
 <p>
 成長回数を入力してください。<br>
-<input type="text" name="n"> <br>
+<input type="number" name="n"> <br>
 <input type="button" name="start"value="成長開始" onclick="m=0;glow()">
 <p>
 成長させる方をクリックしてください。<br>
@@ -205,7 +205,7 @@ if(document.form1.n.value >m){glow()}else{document.form1.seityou1.value = "終�
 勇者の証用：<input type="button" name="reroll" value="振り直し"  disabled onclick="skip()">
 <p>
 記録用<br>
-<textarea name="log" rows="10" cols="30"></textarea><p>
+<textarea name="log" rows="10" cols="30" readonly></textarea><p>
 勇者の種成長は<a href="https://shizuku16.github.io/sw_glow2/">こちら<a><p>
 </form>
 </body>
