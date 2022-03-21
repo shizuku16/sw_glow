@@ -1,23 +1,33 @@
 <html>
 <head>
-<title>能力成長</title>
+<title>勇者の種成長</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/JavaScript">
+dice1=4
+var nouryoku=[]
+var nouryokulist=["器用","敏捷","筋力","生命力","知力","精神力"]
+p=0
+m=0
+e=0
+f=0
+g=0
+h=0
 
 function uketori(){
-var url=new URL(window.location.href)
-kiyou=url.searchParams.get("kiyou")
-binsyou=url.searchParams.get("binsyou")
-kinryoku=url.searchParams.get("kinryoku")
-seimeiryoku=url.searchParams.get("seimeiryoku")
-tiryoku=url.searchParams.get("tiryoku")
-seisinryoku=url.searchParams.get("seisinryoku")
-document.form1.mae1.value=kiyou
-document.form1.mae2.value=binsyou
-document.form1.mae3.value=kinryoku
-document.form1.mae4.value=seimeiryoku
-document.form1.mae5.value=tiryoku
-document.form1.mae6.value=seisinryoku
+	var url=new URL(window.location.href)
+	var nouryokuhyou=["kiyou","binsyou","kinryoku","seimeiryoku","tiryoku","seisinryoku"]
+	nouryoku1=url.searchParams.get("nouryoku1")
+	nouryoku2=url.searchParams.get("nouryoku2")
+	nouryoku3=url.searchParams.get("nouryoku3")
+	nouryoku4=url.searchParams.get("nouryoku4")
+	j=1
+	for(i=0;i<6;i++){
+		document.getElementById(`前${nouryokulist[i]}`).value=url.searchParams.get(`yuusya${i+1}`)
+		if(url.searchParams.get(`nouryoku${j}`)==nouryokuhyou[i]){
+			document.getElementById(`seityou${i}`).checked="checked"
+			j++
+		}
+	}
 }
 
 function load() {
@@ -28,218 +38,118 @@ function load() {
             dataType: 'jsonp',
             jsonpCallback: 'callback'
         })
-        .done(function(jsondate){
-			var item=[jsondate.acce1_name,jsondate.acce2_name,jsondate.acce3_name,jsondate.acce4_name,jsondate.acce5_name,jsondate.acce6_name,jsondate.acce7_name,jsondate.acce8_name,jsondate.acce9_name,jsondate.acce10_name]
-			var bunrui=["技","体","心"]
-			document.form1.mae1.value=jsondate.NP1
-			document.form1.mae2.value=jsondate.NP2
-			document.form1.mae3.value=jsondate.NP3
-			document.form1.mae4.value=jsondate.NP4
-			document.form1.mae5.value=jsondate.NP5
-			document.form1.mae6.value=jsondate.NP6
-
-			for(var i=0;i<10;i++){
-				for(var j=0;j<item[i].length;j++){
-						if(item[i][j].match("勇者"))
-							for(var k=0;k<3;k++){
-								if(item[i][j].match(bunrui[k]))
-									document.form1.akasi.value=k+1
-							}
-				}
-			}
-		})
+    .done(function(jsondate){
+		document.form1.mae1.value=jsondate.NP1
+		document.form1.mae2.value=jsondate.NP2
+		document.form1.mae3.value=jsondate.NP3
+		document.form1.mae4.value=jsondate.NP4
+		document.form1.mae5.value=jsondate.NP5
+		document.form1.mae6.value=jsondate.NP6
+		var header = document.getElementById('name');
+		header.insertAdjacentHTML('afterbegin','　キャラ名：'+jsondate.data_title);
+	})
 }
-
-
-dice1=6
-p=0
-m=0
-g=0
-h=0
-i=0
-j=0
-k=0
-l=0
 
 function glow(){
-
-
-document.form1.reroll.disabled=true
-document.form1.start.disabled=true
-p++
-m++
-dice1=Math.floor(Math.random()*6);
-dice2=Math.floor(Math.random()*6);
-dice3=Math.floor(Math.random()*6);
-nouryoku=new Array("器用","敏捷","筋力","生命","知力","精神");
-document.form1.seityou1.value = nouryoku[dice1];
-document.form1.seityou2.value = nouryoku[dice2];
-document.form1.log.value += p + "：" + nouryoku[dice1] + "or" + nouryoku[dice2];
-
-if(document.form1.akasi.value==1&&dice1!=0&&dice1!=1&&dice2!=0&&dice2!=1){
-document.form1.reroll.disabled=false
-}
-
-if(document.form1.akasi.value==2&&dice1!=2&&dice1!=3&&dice2!=2&&dice2!=3){
-document.form1.reroll.disabled=false
-}
-
-if(document.form1.akasi.value==3&&dice1!=4&&dice1!=5&&dice2!=4&&dice2!=5){
-document.form1.reroll.disabled=false
-}
-stop=1
+	var seityounumber=[]
+	nouryoku=[]
+	for(i=0;i<6;i++)
+		if(document.getElementById(`seityou${i}`).checked)nouryoku.push(nouryokulist[i])
+	p++
+	m++
+	dice1=Math.floor(Math.random()*4);
+	dice2=Math.floor(Math.random()*4);
+	document.form1.button1.value = nouryoku[dice1];
+	document.form1.button2.value = nouryoku[dice2];
+	document.form1.log.value += p + "：" + nouryoku[dice1] + "or" + nouryoku[dice2];
 }
 
 function kettei1(){
-if(document.form1.seityou1.value != "終了"){
-if(dice1==0){g++}
-if(dice1==1){h++}
-if(dice1==2){i++}
-if(dice1==3){j++}
-if(dice1==4){k++}
-if(dice1==5){l++}
+	if(document.form1.button1.value != "終了"){
+	document.getElementById(`追加${nouryoku[dice1]}`).value=Number(document.getElementById(`追加${nouryoku[dice1]}`).value)+1
+	for(i=0;i<6;i++)
+		document.getElementById(`後${nouryokulist[i]}`).value=Number(document.getElementById(`前${nouryokulist[i]}`).value)+Number(document.getElementById(`追加${nouryokulist[i]}`).value)
+	document.form1.log.value += "→"+nouryoku[dice1] + "\n"
+	}
 
-document.form1.a.value=g
-document.form1.b.value=h
-document.form1.c.value=i
-document.form1.d.value=j
-document.form1.e.value=k
-document.form1.f.value=l
-document.form1.log.value += "→"+nouryoku[dice1] + "\n"
-document.form1.ato1.value=g+Number(document.form1.mae1.value)
-document.form1.ato2.value=h+Number(document.form1.mae2.value)
-document.form1.ato3.value=i+Number(document.form1.mae3.value)
-document.form1.ato4.value=j+Number(document.form1.mae4.value)
-document.form1.ato5.value=k+Number(document.form1.mae5.value)
-document.form1.ato6.value=l+Number(document.form1.mae6.value)
-}
-
-if(document.form1.n.value >m){glow()}
-else{document.form1.seityou1.value = "終了";document.form1.seityou2.value = "終了";dice1=6;dice2=6;document.form1.start.disabled=false}
+	if(document.form1.n.value >m)glow()
+	else{document.form1.button1.value = "終了";document.form1.button2.value = "終了";dice1=4;dice2=4}
 }
 
 function kettei2(){
-if(document.form1.seityou1.value != "終了"){
-if(dice2==0){g++}
-if(dice2==1){h++}
-if(dice2==2){i++}
-if(dice2==3){j++}
-if(dice2==4){k++}
-if(dice2==5){l++}
+	if(document.form1.button1.value != "終了"){
+	document.getElementById(`追加${nouryoku[dice2]}`).value=Number(document.getElementById(`追加${nouryoku[dice2]}`).value)+1
+	for(i=0;i<6;i++)
+		document.getElementById(`後${nouryokulist[i]}`).value=Number(document.getElementById(`前${nouryokulist[i]}`).value)+Number(document.getElementById(`追加${nouryokulist[i]}`).value)
+	document.form1.log.value += "→"+nouryoku[dice2] + "\n"
+	}
 
-document.form1.a.value=g
-document.form1.b.value=h
-document.form1.c.value=i
-document.form1.d.value=j
-document.form1.e.value=k
-document.form1.f.value=l
-document.form1.log.value += "→"+nouryoku[dice2] + "\n"
-document.form1.ato1.value=g+Number(document.form1.mae1.value)
-document.form1.ato2.value=h+Number(document.form1.mae2.value)
-document.form1.ato3.value=i+Number(document.form1.mae3.value)
-document.form1.ato4.value=j+Number(document.form1.mae4.value)
-document.form1.ato5.value=k+Number(document.form1.mae5.value)
-document.form1.ato6.value=l+Number(document.form1.mae6.value)
-}
-
-if(document.form1.n.value >m){glow()}else{document.form1.seityou1.value = "終了";document.form1.seityou2.value = "終了";dice1=6;dice2=6;document.form1.start.disabled=false}
-}
-
-function skip(){
-document.form1.log.value += "→振り直し→"+nouryoku[dice3] + "\n"
-if(dice3==0){g++}
-if(dice3==1){h++}
-if(dice3==2){i++}
-if(dice3==3){j++}
-if(dice3==4){k++}
-if(dice3==5){l++}
-document.form1.a.value=g
-document.form1.b.value=h
-document.form1.c.value=i
-document.form1.d.value=j
-document.form1.e.value=k
-document.form1.f.value=l
-document.form1.ato1.value=g+Number(document.form1.mae1.value)
-document.form1.ato2.value=h+Number(document.form1.mae2.value)
-document.form1.ato3.value=i+Number(document.form1.mae3.value)
-document.form1.ato4.value=j+Number(document.form1.mae4.value)
-document.form1.ato5.value=k+Number(document.form1.mae5.value)
-document.form1.ato6.value=l+Number(document.form1.mae6.value)
-
-if(document.form1.n.value >m){glow()}else{document.form1.seityou1.value = "終了";document.form1.seityou2.value = "終了";dice1=6;dice2=6;document.form1.start.disabled=false}
+	if(document.form1.n.value >m)glow()
+	else{document.form1.button1.value = "終了";document.form1.button2.value = "終了";dice1=4;dice2=4}
 }
 
 </script>
 </head>
 
-<body onload="uketori()">
+<body onload=uketori()>
 <form name="form1">
-キャラクターシートURL(任意)：<input type="text" id="url">　<input type="button" value="読み込み" onclick="load()"><br><br>
+キャラクターシートURL(任意)：<input type="text" id="url" onchange="load()"><h id="name"></h><br><br>
 
-各能力の現在値を左の欄に入力してください。<br>
-器用：
-<input type="number" name="mae1" min=0 style="width:45px;" autofocus>
+成長させる能力を選択してください。<br>
+また、その右側にその能力の現在地を入力してください。<br>
+<input type="checkbox" id="seityou0"><label for="seityou0">
+　器用</label>：<input type="number" id="前器用" name="mae1" min=0 style="width:45px;">
 +
-<input type="number" name="a" style="width:40px;" placeholder="0" disabled>回
+<input type="number" id="追加器用" style="width:40px;" value="0" disabled>回
 =
-<input type="number" name="ato1" style="width:40px;" disabled>
+<input type="number" id="後器用" name="ato1" style="width:40px;" disabled>
 <br>
-敏捷：
-<input type="number" name="mae2" min=0 style="width:45px;">
+<input type="checkbox" id="seityou1"><label for="seityou1">
+　敏捷</label>：<input type="number" id="前敏捷" name="mae2" min=0 style="width:45px;">
 +
-<input type="number" name="b" style="width:40px;" placeholder="0" disabled>回
+<input type="number" id="追加敏捷" style="width:40px;" value="0" disabled>回
 =
-<input type="number" name="ato2" style="width:40px;" disabled>
+<input type="number" id="後敏捷" name="ato2" style="width:40px;" disabled>
 <br>
-筋力：
-<input type="number" name="mae3" min=0 style="width:45px;">
+<input type="checkbox" id="seityou2"><label for="seityou2">
+　筋力</label>：<input type="number" id="前筋力" name="mae3" min=0 style="width:45px;">
 +
-<input type="number" name="c" style="width:40px;" placeholder="0" disabled>回
+<input type="number" id="追加筋力" style="width:40px;" value="0" disabled>回
 =
-<input type="number" name="ato3" min=0 style="width:40px;" disabled>
+<input type="number" id="後筋力" name="ato3" style="width:40px;" disabled>
 <br>
-生命：
-<input type="number" name="mae4" min=0 style="width:45px;">
+<input type="checkbox" id="seityou3"><label for="seityou3">
+生命力</label>：<input type="number" id="前生命力" name="mae4" min=0 style="width:45px;">
 +
-<input type="number" name="d" style="width:40px;" placeholder="0" disabled>回
+<input type="number" id="追加生命力" style="width:40px;" value="0" disabled>回
 =
-<input type="number" name="ato4" style="width:40px;" disabled>
+<input type="number" id="後生命力" name="ato4" style="width:40px;" disabled>
 <br>
-知力：
-<input type="number" name="mae5" min=0 style="width:45px;">
+<input type="checkbox" id="seityou4"><label for="seityou4">
+　知力</label>：<input type="number" id="前知力" name="mae5" min=0 style="width:45px;">
 +
-<input type="number" name="e" style="width:40px;" placeholder="0" disabled>回
+<input type="number" id="追加知力" style="width:40px;" value="0" disabled>回
 =
-<input type="number" name="ato5" style="width:40px;" disabled>
+<input type="number" id="後知力" name="ato5" style="width:40px;" disabled>
 <br>
-精神：
-<input type="number" name="mae6" min=0 style="width:45px;">
+<input type="checkbox" id="seityou5"><label for="seityou5">
+精神力</label>：<input type="number" id="前精神力" name="mae6" min=0 style="width:45px;">
 +
-<input type="number" name="f" style="width:40px;" placeholder="0" disabled>回
+<input type="number" id="追加精神力" style="width:40px;" value="0" disabled>回
 =
-<input type="number" name="ato6" style="width:40px;" disabled>
-<p>
-勇者の証を着けている場合には以下から種類を選択してください。<br>
-<select name="akasi">
-	<option value="0">なし</option>
-	<option value="1">技</option>
-	<option value="2">体</option>
-	<option value="3">心</option>
-</select>
+<input type="number" id="後精神力" name="ato6" style="width:40px;" disabled>
 <p>
 成長回数を入力してください。<br>
-<input type="number" name="n"> <br>
-<input type="button" name="start"value="成長開始" onclick="m=0;glow()">
+<input type="number" min=1 name="n"> <br>
+<input type="button" value="成長開始" value="start" onclick="if(dice1==4){m=0;glow()}" >
 <p>
 成長させる方をクリックしてください。<br>
-能力1：<input type="button" name="seityou1" onclick="kettei1()">
-能力2：<input type="button" name="seityou2" onclick="kettei2()">
-&nbsp&nbsp&nbsp;
-勇者の証用：<input type="button" name="reroll" value="振り直し"  disabled onclick="skip()">
+能力1：<input type="button" name="button1" onclick="kettei1()">
+能力2：<input type="button" name="button2" onclick="kettei2()">
 <p>
 記録用<br>
 <textarea name="log" rows="10" cols="30"></textarea><p>
-勇者の種成長は<a href="https://shizuku16.github.io/sw_glow2/">こちら<a><p>
+通常の成長は<a href="https://shizuku16.github.io/sw_glow/">こちら<a><p>
 </form>
 </body>
 </html>
